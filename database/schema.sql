@@ -63,17 +63,17 @@ CREATE TABLE IF NOT EXISTS option_market_data (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE UNIQUE INDEX idx_option_row_hash
+CREATE UNIQUE INDEX IF NOT EXISTS idx_option_row_hash
 ON option_market_data("Row_Hash");
 
-CREATE INDEX idx_option_timestamp
+CREATE INDEX IF NOT EXISTS idx_option_timestamp
 ON option_market_data("Timestamp");
 
-CREATE INDEX idx_option_strike
+CREATE INDEX IF NOT EXISTS idx_option_strike
 ON option_market_data("Target_Strike");
 
-CREATE INDEX idx_option_ce_symbol
+CREATE INDEX IF NOT EXISTS idx_option_ce_symbol
 ON option_market_data("CE_Symbol");
 
-CREATE INDEX idx_option_pe_symbol
+CREATE INDEX IF NOT EXISTS idx_option_pe_symbol
 ON option_market_data("PE_Symbol");

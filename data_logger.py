@@ -20,7 +20,7 @@ from database.postgres_writer import PostgresWriter
 
 # 🌍 SYSTEM HARDWARE CLOCK SYNCHRONIZATION
 IST = pytz.timezone('Asia/Kolkata')
-load_dotenv('.env')
+load_dotenv()
 
 DATA_STORE = os.getenv("DATA_STORE", "db").strip().lower()
 DATA_STORE_TARGETS = [target.strip() for target in DATA_STORE.split(",") if target.strip()]
