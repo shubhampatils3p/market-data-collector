@@ -1,0 +1,12 @@
+psycopg2-binary
+smartapi-python
+pyotp
+pandas
+numpy
+scipy
+gspread
+google-auth
+python-dotenv
+pytz
+logzero
+websocket-client
