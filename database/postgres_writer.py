@@ -1,5 +1,6 @@
 from psycopg2.extras import execute_values
-
+import math
+import numpy as np
 from database.db import get_connection, release_connection
 
 
@@ -74,8 +75,36 @@ DO NOTHING;
 """
 
 
+def _convert_value(value):
+
+    if value == "":
+        return None
+
+    if value is None:
+        return None
+
+    if isinstance(value, np.integer):
+        return int(value)
+
+    if isinstance(value, np.floating):
+
+        value = float(value)
+
+        if math.isnan(value):
+            return None
+
+        return value
+
+    if isinstance(value, np.bool_):
+        return bool(value)
+
+    return value
+
+
 def _prepare_row(index_id, row):
-    cleaned = [None if value == "" else value for value in row]
+
+    cleaned = [_convert_value(v) for v in row]
+
     return tuple([index_id] + cleaned)
 
 
