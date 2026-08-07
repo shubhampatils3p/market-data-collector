@@ -1,0 +1,6 @@
+[Unit]
+Description=Stop Market Data Collector
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl stop market-data-collector.service

@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily PostgreSQL Backup
+
+[Service]
+Type=oneshot
+ExecStart=/home/ubuntu/market-data-collector/backup/backup_db.sh
+ExecStartPost=/home/ubuntu/market-data-collector/backup/cleanup_backups.sh
+
+User=ubuntu
+WorkingDirectory=/home/ubuntu/market-data-collector

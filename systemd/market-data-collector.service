@@ -1,0 +1,23 @@
+[Unit]
+Description=Market Data Collector
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+
+User=ubuntu
+WorkingDirectory=/home/ubuntu/market-data-collector
+
+EnvironmentFile=/home/ubuntu/market-data-collector/.env
+
+ExecStart=/home/ubuntu/market-data-collector/venv/bin/python /home/ubuntu/market-data-collector/data_logger.py
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

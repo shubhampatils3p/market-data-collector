@@ -1,0 +1,6 @@
+[Unit]
+Description=Start Market Data Collector
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl start market-data-collector.service
