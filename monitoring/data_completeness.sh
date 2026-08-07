@@ -155,6 +155,12 @@ MISSING_ROWS=$(get_summary_value "Missing Rows" "$DATA_REPORT_TMP")
 DUPLICATE_ROWS=$(get_summary_value "Duplicate Rows" "$DATA_REPORT_TMP")
 NULL_VALUES=$(get_summary_value "NULL Values" "$DATA_REPORT_TMP")
 
+EXPECTED_ROWS=$(printf "%'d" "$EXPECTED_ROWS" 2>/dev/null || echo "$EXPECTED_ROWS")
+ACTUAL_ROWS=$(printf "%'d" "$ACTUAL_ROWS" 2>/dev/null || echo "$ACTUAL_ROWS")
+MISSING_ROWS=$(printf "%'d" "$MISSING_ROWS" 2>/dev/null || echo "$MISSING_ROWS")
+DUPLICATE_ROWS=$(printf "%'d" "$DUPLICATE_ROWS" 2>/dev/null || echo "$DUPLICATE_ROWS")
+NULL_VALUES=$(printf "%'d" "$NULL_VALUES" 2>/dev/null || echo "$NULL_VALUES")
+
 if [[ -z "$DATA_QUALITY_STATUS" ]]; then
     DATA_QUALITY_STATUS="PASS"
 fi
@@ -182,22 +188,23 @@ MESSAGE=$(cat <<EOF
 
 📅 Date : $REPORT_DATE
 
-Health
+━━━━━━━━━━━━━━━━━━━━━━
+
+📋 *HEALTH*
 
 Collector        $(format_status "$COLLECTOR_VALUE")
 Database         $(format_status "$DATABASE_VALUE")
 Backup           $(format_status "$BACKUP_VALUE")
 Logs             $(format_status "$LOGS_VALUE")
-Disk             $DISK_VALUE
-Memory           $MEMORY_VALUE
+Disk Usage       $DISK_VALUE
+Memory Usage     $MEMORY_VALUE
 CPU              $(format_status "$CPU_VALUE")
 
-Overall Health
-$(format_status "$OVERALL_HEALTH")
+Overall Health   $(format_status "$OVERALL_HEALTH") $OVERALL_HEALTH
 
-------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━
 
-Data Quality
+📈 *DATA QUALITY*
 
 $INDEX_LINES
 
@@ -207,8 +214,11 @@ Missing Rows     $MISSING_ROWS
 Duplicate Rows   $DUPLICATE_ROWS
 NULL Values      $NULL_VALUES
 
-Overall Data
-$(format_status "$DATA_QUALITY_STATUS")
+Overall Data     $(format_status "$DATA_QUALITY_STATUS") $DATA_QUALITY_STATUS
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+📎 Detailed report attached.
 EOF
 )
 
