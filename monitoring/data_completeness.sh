@@ -48,7 +48,7 @@ fi
 DATA_REPORT_TMP="$REPORT_DIR/${REPORT_DATE}_data_quality_detail.txt"
 
 if [[ -f "$PROJECT_DIR/reports/data_quality_report.py" ]]; then
-    if ! python3 "$PROJECT_DIR/reports/data_quality_report.py" > "$DATA_REPORT_TMP" 2>&1; then
+    if ! "$PROJECT_DIR/venv/bin/python" "$PROJECT_DIR/reports/data_quality_report.py" > "$DATA_REPORT_TMP" 2>&1; then
         echo "ERROR: Data quality report generation failed" >&2
         exit 1
     fi
