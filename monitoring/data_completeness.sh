@@ -188,35 +188,33 @@ MESSAGE=$(cat <<EOF
 
 📅 Date : $REPORT_DATE
 
-━━━━━━━━━━━━━━━━━━━━━━
+\`\`\`
+📋 HEALTH
 
-📋 *HEALTH*
+Collector      $(format_status "$COLLECTOR_VALUE")
+Database       $(format_status "$DATABASE_VALUE")
+Backup         $(format_status "$BACKUP_VALUE")
+Logs           $(format_status "$LOGS_VALUE")
+Disk Usage     $DISK_VALUE
+Memory Usage   $MEMORY_VALUE
+CPU            $(format_status "$CPU_VALUE")
 
-Collector        $(format_status "$COLLECTOR_VALUE")
-Database         $(format_status "$DATABASE_VALUE")
-Backup           $(format_status "$BACKUP_VALUE")
-Logs             $(format_status "$LOGS_VALUE")
-Disk Usage       $DISK_VALUE
-Memory Usage     $MEMORY_VALUE
-CPU              $(format_status "$CPU_VALUE")
+Overall Health $(format_status "$OVERALL_HEALTH") $OVERALL_HEALTH
 
-Overall Health   $(format_status "$OVERALL_HEALTH") $OVERALL_HEALTH
+────────────────────────
 
-━━━━━━━━━━━━━━━━━━━━━━
-
-📈 *DATA QUALITY*
+📈 DATA QUALITY
 
 $INDEX_LINES
 
-Expected Rows    $EXPECTED_ROWS
-Actual Rows      $ACTUAL_ROWS
-Missing Rows     $MISSING_ROWS
-Duplicate Rows   $DUPLICATE_ROWS
-NULL Values      $NULL_VALUES
+Expected Rows  $EXPECTED_ROWS
+Actual Rows    $ACTUAL_ROWS
+Missing Rows   $MISSING_ROWS
+Duplicate Rows $DUPLICATE_ROWS
+NULL Values    $NULL_VALUES
 
-Overall Data     $(format_status "$DATA_QUALITY_STATUS") $DATA_QUALITY_STATUS
-
-━━━━━━━━━━━━━━━━━━━━━━
+Overall Data   $(format_status "$DATA_QUALITY_STATUS") $DATA_QUALITY_STATUS
+\`\`\`
 
 📎 Detailed report attached.
 EOF
