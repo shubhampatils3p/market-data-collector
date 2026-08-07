@@ -1,0 +1,25 @@
+[Unit]
+Description=Market Data Collector Health Check
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+
+User=ubuntu
+Group=ubuntu
+
+WorkingDirectory=/home/ubuntu/market-data-collector
+
+ExecStart=/bin/bash /home/ubuntu/market-data-collector/monitoring/health_check.sh
+
+# Optional security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Send stdout/stderr to systemd journal
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

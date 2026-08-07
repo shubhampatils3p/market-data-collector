@@ -1,0 +1,18 @@
+[Unit]
+Description=Run Market Data Collector Health Check (Mon-Fri 16:15)
+
+[Timer]
+# Run every weekday after:
+# 15:50 -> Collector Stop
+# 15:55 -> Backup
+# 16:05 -> Log Cleanup
+# 16:15 -> Health Check
+
+OnCalendar=Mon..Fri 16:15:00
+Persistent=true
+TimeZone=Asia/Kolkata
+
+Unit=health.service
+
+[Install]
+WantedBy=timers.target
