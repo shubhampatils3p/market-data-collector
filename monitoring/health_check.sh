@@ -489,8 +489,4 @@ echo ""
 # and fails for any critical health issue.
 # ==========================================================
 
-# if [[ "$OVERALL_STATUS" == "FAIL" ]]; then
-#     exit 1
-# fi
-
 exit 0
