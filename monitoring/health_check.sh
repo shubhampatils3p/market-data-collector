@@ -370,7 +370,7 @@ CPU_LOAD=$(uptime | awk -F'load average:' '{print $2}' | awk -F',' '{print $1}' 
 LOAD_THRESHOLD=$(awk -v cores="$CPU_CORES" 'BEGIN { printf "%.2f", cores * 1.5 }')
 
 if [[ "$CPU_LOAD" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-    if awk -v load="$CPU_LOAD" -v threshold="$LOAD_THRESHOLD" 'BEGIN { exit !(load > threshold) }'; then
+    if awk -v current_load="$CPU_LOAD" -v threshold="$LOAD_THRESHOLD" 'BEGIN { exit !(current_load > threshold) }'; then
         warn_check "CPU" "Load ${CPU_LOAD} exceeds threshold ${LOAD_THRESHOLD}"
         CPU_STATUS="WARNING"
     else
@@ -415,11 +415,21 @@ check_timer_status "$STOP_TIMER"
 check_timer_status "$BACKUP_TIMER"
 check_timer_status "$LOG_TIMER"
 
-if [[ "$OVERALL_STATUS" == "PASS" ]]; then
-    TIMERS_STATUS="PASS"
-else
-    TIMERS_STATUS="FAIL"
-fi
+TIMERS_STATUS="PASS"
+
+for timer in \
+"$START_TIMER" \
+"$STOP_TIMER" \
+"$BACKUP_TIMER" \
+"$LOG_TIMER"
+do
+    if ! systemctl is-enabled "$timer" >/dev/null 2>&1 || \
+       ! systemctl is-active "$timer" >/dev/null 2>&1
+    then
+        TIMERS_STATUS="FAIL"
+        break
+    fi
+done
 
 # ==========================================================
 # Health Summary File
