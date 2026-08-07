@@ -7,7 +7,7 @@ set -euo pipefail
 # ==========================================================
 
 PROJECT_DIR="/home/ubuntu/market-data-collector"
-BACKUP_DIR="$PROJECT_DIR/backup/backups"
+BACKUP_DIR="/home/ubuntu/market-data-backups"
 ENV_FILE="$PROJECT_DIR/.env"
 
 # ==========================================================
