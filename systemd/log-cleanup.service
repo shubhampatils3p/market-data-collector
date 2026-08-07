@@ -1,0 +1,10 @@
+[Unit]
+Description=Application Log Cleanup
+
+[Service]
+Type=oneshot
+
+ExecStart=/home/ubuntu/market-data-collector/monitoring/cleanup_logs.sh
+
+User=ubuntu
+WorkingDirectory=/home/ubuntu/market-data-collector

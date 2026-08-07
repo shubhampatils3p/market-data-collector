@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Application Log Cleanup Weekly
+
+[Timer]
+OnCalendar=Sun 02:00:00
+Persistent=true
+Unit=log-cleanup.service
+
+[Install]
+WantedBy=timers.target
