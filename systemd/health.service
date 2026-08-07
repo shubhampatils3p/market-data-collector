@@ -12,6 +12,7 @@ Group=ubuntu
 WorkingDirectory=/home/ubuntu/market-data-collector
 
 ExecStart=/bin/bash /home/ubuntu/market-data-collector/monitoring/health_check.sh
+ExecStartPost=/bin/bash /home/ubuntu/market-data-collector/monitoring/data_completeness.sh
 
 # Optional security hardening
 NoNewPrivileges=true
