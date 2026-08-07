@@ -116,6 +116,12 @@ if [ ! -s "$COMPRESSED_FILE" ]; then
     exit 1
 fi
 
+# Verify gzip archive integrity
+if ! gzip -t "$COMPRESSED_FILE"; then
+    echo "❌ ERROR: Backup integrity check failed!"
+    exit 1
+fi
+
 # ==========================================================
 # Generate SHA256 Checksum
 # ==========================================================
